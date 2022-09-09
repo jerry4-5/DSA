@@ -1,0 +1,39 @@
+C++ code
+
+https://leetcode.com/problems/deepest-leaves-sum/submissions/
+
+
+class Solution {
+    int func(TreeNode* node){
+        if(node == NULL){
+            return 0;
+        }
+        int left = func(node->left);
+        int right = func(node->right);
+        
+        return 1+max(left ,right); 
+    }
+    void func2(TreeNode* node, int& num, int& maxsum, int& maxhieght){
+        if(node == NULL){
+            return;
+        }
+        int k = num+1;
+        //cout<<k<<endl;
+        if(k == maxhieght){
+            maxsum += node->val;
+        }
+        func2(node->left,k,maxsum,maxhieght);
+        func2(node->right,k,maxsum,maxhieght);
+    }
+    
+public:
+    int deepestLeavesSum(TreeNode* root) {
+        int maxsum = 0;
+        
+        int maxhieght=func(root);
+        int num = 0;
+        //cout<<maxhieght<<endl;
+        func2(root,num,maxsum,maxhieght);
+        return maxsum;
+    }
+};
