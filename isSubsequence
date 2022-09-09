@@ -1,0 +1,57 @@
+C++ code
+
+https://leetcode.com/problems/is-subsequence/submissions/
+
+
+Two Pointer Approach :-
+
+bool isSubsequence(string s, string t) {
+        int i=0, j=0;
+        while(i < s.length() && j < t.length()){
+            if(s[i]==t[j]){
+                i++;
+                j++;
+               
+            }
+            else{
+                j++;
+            }
+        }
+        
+        if(i == s.length()){
+            return 1;
+        }
+        return 0;
+    }
+    
+    
+    DP Approach :-
+    
+    
+    bool func(int &i, int &j, string &s, string &t,vector<vector<int>>& dp){
+        if(i==s.length()){
+            return 1;
+        }
+        if(i < s.length() && j == t.length()){
+            return 0;
+        }
+        if(dp[i][j] != -1){
+            return dp[i][j];
+        }
+        int k = i+1,l = j+1;
+        if(s[i]==t[j]){
+            
+            return dp[i][j]=func(k,l,s,t,dp);
+        }
+        return dp[i][j]=func(i,l,s,t,dp);
+    }
+public:
+    bool isSubsequence(string s, string t) {
+        int i=0,j=0;
+        vector<vector<int>> dp(s.length(),vector<int>(t.length(),-1));
+      
+        if(func(i,j,s,t,dp)){
+            return 1;
+        }
+        return 0;
+    }
