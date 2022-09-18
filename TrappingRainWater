@@ -1,0 +1,46 @@
+C++ code
+
+
+https://leetcode.com/problems/trapping-rain-water/
+
+
+class Solution {
+    void func(vector<int>& height,vector<int>& rightmax,vector<int>& leftmax){
+        stack<int>st;
+        int maxi = height[0];
+        for(int i=0;i<height.size();i++){
+            while(!st.empty() && height[i] > st.top()){
+                maxi = max(maxi,height[i]);
+                st.pop();
+            }
+            leftmax[i] = maxi;
+            st.push(height[i]);
+        }
+        maxi = height[height.size()-1];
+        while(!st.empty()){
+            st.pop();
+        }
+        for(int i=height.size()-1;i>=0;i--){
+            while(!st.empty() && height[i] > st.top()){
+                maxi = max(maxi,height[i]);
+                st.pop();
+            }
+            rightmax[i] = maxi;
+            st.push(height[i]);
+        }
+    }
+    int func2(vector<int>& height,vector<int>& rightmax,vector<int>& leftmax){
+        int maxi = 0;
+        for(int i=0;i<height.size();i++){
+            maxi += (min(rightmax[i],leftmax[i]) - height[i]);
+        }
+        return maxi;
+    }
+public:
+    int trap(vector<int>& height) {
+       vector<int> rightmax(height.size()),leftmax(height.size());
+        func(height,rightmax,leftmax);
+        int ans = func2(height,rightmax,leftmax);
+        return ans;
+    }
+};
