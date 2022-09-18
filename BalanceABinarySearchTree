@@ -1,0 +1,43 @@
+C++ code
+
+
+https://leetcode.com/problems/balance-a-binary-search-tree/
+
+
+class Solution {
+    void funcin(TreeNode* node,vector<int>& inorder){
+        if(node == NULL){
+            return;
+        }
+        if(node->left){
+            funcin(node->left,inorder);
+        }
+        inorder.push_back(node->val);
+        if(node->right){
+            funcin(node->right,inorder);
+        }
+    }
+    TreeNode* func(int& start , int& end, vector<int>& inorder){
+        if(start > end){
+            return NULL;
+        }
+        int mid = start + (end - start)/2;
+        TreeNode* node = new TreeNode(inorder[mid]);
+        int j = mid-1,k = mid+1;
+        node->left = func(start,j,inorder);
+        node->right = func(k,end,inorder);
+        return node;
+    }
+    
+public:
+    TreeNode* balanceBST(TreeNode* root) {
+        if(root == NULL){
+            return NULL;
+        }
+        vector<int> inorder;
+        funcin(root,inorder);
+        int i=0,j=inorder.size()-1;
+        TreeNode* node = func(i,j,inorder);
+        return node;
+    }
+};
