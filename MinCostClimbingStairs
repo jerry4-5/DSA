@@ -1,0 +1,31 @@
+C++ code
+
+
+https://leetcode.com/problems/min-cost-climbing-stairs/submissions/
+
+
+
+class Solution {
+    int func(int& i, vector<int>& cost, vector<int>& dp){
+        if(i >= cost.size()){
+            return 0;
+        }
+        if(dp[i]!= -1){
+            return dp[i];
+        }
+        int j = i+1,k = i+2;
+        int one = cost[i] + func(j,cost,dp);
+        int two = cost[i] + func(k,cost,dp);
+        return dp[i]=min(one,two);
+    }
+public:
+    int minCostClimbingStairs(vector<int>& cost) {
+        if(cost.size()==2){
+            return min(cost[0],cost[1]);
+        }
+        vector<int>dp1(cost.size()+1,-1),dp2(cost.size()+1,-1);
+        int i=0,j=1;
+        int minans = min(func(i,cost,dp1),func(j,cost,dp2));
+        return minans;
+    }
+};
