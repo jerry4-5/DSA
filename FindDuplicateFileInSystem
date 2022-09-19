@@ -1,0 +1,49 @@
+C++ code
+
+
+
+https://leetcode.com/problems/find-duplicate-file-in-system/
+
+
+
+
+class Solution {
+public:
+    vector<vector<string>> findDuplicate(vector<string>& paths) {
+       map<string,vector<string>> m;
+        vector<vector<string>> ans;
+        for(int i=0;i<paths.size();i++){
+            string k = "",temp="";
+            bool flag =0;
+            for(int j=0;j<paths[i].length();j++){
+               if(paths[i][j] == ' '){
+                    k += '/';
+                }
+                else if(paths[i][j] == '('){
+                  flag = 1;
+                }else if(paths[i][j] ==')'){
+                    flag =0;
+                    m[temp].push_back(k);
+                    temp = "";
+                    for(int t = k.length()-1;t>=0;t--){
+                        if(k[t]=='/'){
+                            k = k.substr(0,t);
+                            break;
+                        }
+                    }
+                }
+                else if(flag == 1){
+                    temp += paths[i][j];
+                }
+                else{
+                    k += paths[i][j];
+                }
+            }
+        }
+        for(auto it : m){
+            if(it.second.size()>1)
+            ans.push_back(it.second);
+        }
+        return ans;
+    }
+};
