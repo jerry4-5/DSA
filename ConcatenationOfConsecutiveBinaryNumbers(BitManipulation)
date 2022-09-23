@@ -1,0 +1,36 @@
+C++ code
+
+
+https://leetcode.com/problems/concatenation-of-consecutive-binary-numbers/
+
+
+
+
+
+
+
+#define mod 1000000007
+class Solution {
+    long long power(long long a,long long p){
+        long long res = 1;
+        while(p){
+            if(p%2){
+                res = (res%mod)*(a%mod);
+                p--;
+            }
+            a = (a%mod)*(a%mod);
+            p /= 2;
+        }
+        return res;
+    }
+public:
+    int concatenatedBinary(int n) {
+        int number = 1;
+        for(int i=2;i<=n;i++){
+            long long k = (log(i)/log(2)) + 1;
+            number = (((number%mod )*(power(2,k)%mod))%mod);
+            number = (number%mod) + (i%mod);
+        }
+        return number%mod;
+    }
+};
