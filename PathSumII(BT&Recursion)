@@ -1,0 +1,54 @@
+C++ code
+
+
+
+
+https://leetcode.com/problems/path-sum-ii/
+
+
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+    void func(TreeNode* node, int targetSum, vector<int> temp, vector<vector<int>>& ans, TreeNode* root){
+        if(node && !node->left && !node->right){
+           if(node->val == targetSum){
+               temp.push_back(node->val);
+               targetSum -= node->val;
+               if(temp[0]==root->val)
+               ans.push_back(temp);
+           }
+            return;
+        }
+        if(!node){
+            return;
+        }
+        temp.push_back(node->val);
+        targetSum -= node->val;
+        func(node->left,targetSum, temp,ans,root);
+        func(node->right,targetSum,temp,ans,root);
+        temp.pop_back();
+        targetSum += node->val;
+    }
+public:
+    vector<vector<int>> pathSum(TreeNode* root, int targetSum) {
+        
+        vector<vector<int>> ans;
+        if(root == NULL){
+            return ans;
+        }
+        vector<int>temp;
+        func(root,targetSum,temp,ans,root);
+       
+        return ans;
+    }
+};
