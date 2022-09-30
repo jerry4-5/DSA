@@ -1,0 +1,48 @@
+C++ code
+
+
+
+
+https://leetcode.com/problems/the-skyline-problem/description/
+
+
+
+
+
+class Solution {
+public:
+    vector<vector<int>> getSkyline(vector<vector<int>>& buildings) {
+        
+         vector<vector<int>> ans;
+         vector<pair<int,int>>hieghts;
+         for(int i=0;i<buildings.size();i++){
+         //denotes starting point
+             hieghts.push_back({buildings[i][0],-1*buildings[i][2]});
+         //denotes ending point
+             hieghts.push_back({buildings[i][1],buildings[i][2]});
+         }
+         sort(hieghts.begin(),hieghts.end());
+         map<int,int>m;
+         int max = 0;
+         m[0]++;
+         for(int i=0;i<hieghts.size();i++){
+             int h = hieghts[i].second,x = hieghts[i].first;
+             if(h<0){
+                 m[-h]++;
+             }
+             else if(h>0){
+                 if(m[h]>1){
+                     m[h]--;
+                 }
+                 else{
+                     m.erase(h);
+                 }
+             }
+             if(max != m.rbegin()->first){
+                 ans.push_back({x,m.rbegin()->first});
+                 max = m.rbegin()->first;
+             }
+         }
+         return ans;
+    }
+};
