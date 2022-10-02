@@ -1,0 +1,39 @@
+C++ code
+
+
+
+
+
+https://leetcode.com/problems/number-of-dice-rolls-with-target-sum/description/
+
+
+
+
+
+#define mod 1000000007
+class Solution {
+    int func(int n,int k, int target,vector<vector<long long>>& dp){
+        if(n == 0){
+            if(target == 0){
+                return 1;
+            }
+            return 0;
+        }
+        if(target < 0){
+            return 0;
+        }
+        if(dp[n][target]!=-1){
+            return dp[n][target];
+        }
+        long long one = 0;
+        for(int i=1;i<=k;i++){
+            one = one%mod + func(n-1,k,target-i,dp)%mod;
+        }
+        return dp[n][target]=one%mod;
+    }
+public:
+    int numRollsToTarget(int n, int k, int target) {
+        vector<vector<long long>>dp(31,vector<long long>(1001,-1));
+        return func(n,k,target,dp)%mod;
+    }
+};
