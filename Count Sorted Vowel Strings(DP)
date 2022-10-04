@@ -1,0 +1,65 @@
+C++ code
+
+
+
+
+https://leetcode.com/problems/count-sorted-vowel-strings/description/
+
+
+
+
+//Memoization
+
+
+class Solution {
+    int func(int i, int n, string& v,vector<vector<int>>&dp){
+        if( n == 0){
+            return 1;
+        }
+        if(i == v.length()){
+            return 0;
+        }
+        if(dp[i][n] != -1){
+            return dp[i][n];
+        }
+        int one = func(i,n-1,v,dp);
+        int two = func(i+1,n,v,dp);
+
+        return dp[i][n] = one + two;
+    }
+public:
+    int countVowelStrings(int n) {
+        vector<vector<int>>dp(5,vector<int>(n+1,-1));
+        string v = "aeiou";
+        return func(0,n,v,dp);
+    }
+};
+
+
+
+//Tabulation
+
+
+class Solution {
+public:
+    int countVowelStrings(int n) {
+       vector<vector<int>> dp (6,vector<int>(n+1,0));
+
+
+        for(int i=0;i<6;i++){
+            dp[i][0]=1;
+        }
+        for(int i=1;i<=n;i++){
+            dp[5][i]=0;
+        }
+
+        for(int i=4;i>=0;i--){
+            for(int j=1;j<=n;j++){
+                dp[i][j] = dp[i][j-1] + dp[i+1][j];
+            }
+        }
+
+
+    return dp[0][n];
+    }
+};
