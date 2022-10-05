@@ -1,0 +1,44 @@
+C++ code
+
+
+
+https://leetcode.com/problems/palindromic-substrings/description/
+
+
+
+//Memoization
+
+
+class Solution {
+    int func(int i,int j,string& s,vector<vector<int>>& dp){
+        if(i<0 || j>=s.length()){
+            return 0;
+        }
+        int one = 0,two =0;
+        if(dp[i][j]!=-1){
+            return dp[i][j];
+        }
+        if(s[i] == s[j]){
+            one = 1 + func(i-1,j+1,s,dp);
+        }
+        if(i==j || j-i == 1){
+        two = func(i+1,j+1,s,dp);
+        }
+        return dp[i][j]=one+two;
+    }
+public:
+    int countSubstrings(string s) {
+        if(s.length()==1){
+            return 1;
+        }
+        vector<vector<int>> dp(s.length()+1,vector<int>(s.length()+1,-1));
+        int one = func(0,0,s,dp);
+        for(int i=0;i<=s.length();i++){
+            for(int j=0;j<=s.length();j++){
+                dp[i][j]=-1;
+            }        
+        }
+        int two = func(0,1,s,dp);
+        return one+two;
+    }
+};
