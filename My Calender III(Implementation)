@@ -1,0 +1,45 @@
+C++ code
+
+
+
+
+https://leetcode.com/problems/my-calendar-iii/description/
+
+
+
+
+class MyCalendarThree {
+private: map<int,int>m;
+public:
+    MyCalendarThree() {
+        
+    }
+    
+    int book(int start, int end) {
+        if(m.find(start)==m.end()){
+            m[start] = 1;
+        }
+        else{
+            m[start]++;
+        }
+        if(m.find(end)==m.end()){
+            m[end] = -1;
+        }
+        else{
+            m[end]--;
+        }
+        int maxActive = 0;
+        int events = 0;
+        for(auto it : m){
+            events += it.second;
+            maxActive = max(maxActive,events);
+        }
+        return maxActive;
+    }
+};
+
+/**
+ * Your MyCalendarThree object will be instantiated and called as such:
+ * MyCalendarThree* obj = new MyCalendarThree();
+ * int param_1 = obj->book(start,end);
+ */
