@@ -1,0 +1,31 @@
+C++ code
+
+
+
+
+https://leetcode.com/problems/increasing-triplet-subsequence/description/
+
+
+
+
+class Solution {
+public:
+    bool increasingTriplet(vector<int>& nums) {
+        if(nums.size()<=2){
+            return 0;
+        }
+        int f = INT_MAX,s = INT_MAX;
+        for(int i=0;i<nums.size();i++){
+            if(nums[i] <= f){
+                f = nums[i];
+            }
+            else if(nums[i] <= s){
+                s = nums[i];
+            }
+            else{
+                return 1;
+            }
+        }
+        return 0;
+    }
+};
