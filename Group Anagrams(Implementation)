@@ -1,0 +1,29 @@
+C++ code
+
+
+
+https://leetcode.com/problems/group-anagrams/description/
+
+
+
+
+class Solution {
+public:
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+        map<string,vector<string>>m;
+        vector<vector<string>>ans;
+        for(int i=0;i<strs.size();i++){
+            string a = strs[i];
+            sort(a.begin(),a.end());
+            m[a].push_back(strs[i]);
+        }
+        for(auto it : m){
+            vector<string> temp;
+            for(auto t : it.second){
+                temp.push_back(t);
+            }
+            ans.push_back(temp);
+        }
+        return ans;
+    }
+};
