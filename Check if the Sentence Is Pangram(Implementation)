@@ -1,0 +1,24 @@
+C++ code
+
+
+
+https://leetcode.com/problems/check-if-the-sentence-is-pangram/description/
+
+
+
+
+class Solution {
+public:
+    bool checkIfPangram(string sentence) {
+        map<char,int>m;
+        for(int i=0;i<sentence.length();i++){
+            if(sentence[i]-'a' >= 0 && sentence[i]-'a' <= 25){
+                m[sentence[i]]++;
+            }
+        }
+        if(m.size()==26){
+            return 1;
+        }
+        return 0;
+    }
+};
