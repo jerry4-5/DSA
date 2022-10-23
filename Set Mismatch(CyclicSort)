@@ -1,0 +1,34 @@
+C++ code
+
+
+
+https://leetcode.com/problems/set-mismatch/description/
+
+
+
+class Solution {
+public:
+    vector<int> findErrorNums(vector<int>& nums) {
+        int i=0;
+        vector<int>ans;
+        int rep=-1,repwith = -1;
+        while(i<nums.size()){
+            int corrected = nums[i]-1;
+            if(i == corrected){
+                i++;
+            }
+            else if(nums[corrected] == nums[i] && i!=corrected){
+                rep = nums[i];
+                repwith = i+1;
+                i++;
+            }
+            else{
+                int temp = nums[corrected];
+                nums[corrected] = nums[i];
+                nums[i] = temp;
+            }
+        }
+        ans = {rep,repwith};
+        return ans;
+    }
+};
