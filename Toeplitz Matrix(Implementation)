@@ -1,0 +1,26 @@
+C++ code
+
+
+
+https://leetcode.com/problems/toeplitz-matrix/description/
+
+
+
+
+class Solution {
+public:
+    bool isToeplitzMatrix(vector<vector<int>>& matrix) {
+        map<int,int>m;
+        for(int i=0;i<matrix.size();i++){
+            for(int j=0;j<matrix[i].size();j++){
+                if(!m.count(i-j)){
+                    m[i-j]=matrix[i][j];
+                }
+                else if(m[i-j] != matrix[i][j]){
+                    return 0;
+                }
+            }
+        }
+        return 1;
+    }
+};
