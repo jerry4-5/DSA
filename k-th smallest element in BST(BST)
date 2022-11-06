@@ -1,0 +1,41 @@
+C++ code
+
+
+https://practice.geeksforgeeks.org/problems/find-k-th-smallest-element-in-bst/1
+
+
+struct Node {
+    int data;
+    Node *left;
+    Node *right;
+
+    Node(int val) {
+        data = val;
+        left = right = NULL;
+    }
+};
+*/
+
+class Solution {
+    void func(Node* node, int k, int& count,int& num){
+        if(node == NULL){
+            return;
+        }
+        func(node->left,k,count,num);
+        count++;
+        if(count == k){
+            num = node->data;
+            return;
+        }
+        func(node->right,k,count,num);
+    }
+  public:
+    // Return the Kth smallest element in the given BST
+    int KthSmallestElement(Node *root, int K) {
+        // add code here.
+        int count = 0;
+        int num = -1;
+        func(root,K,count,num);
+        return num;
+    }
+};
