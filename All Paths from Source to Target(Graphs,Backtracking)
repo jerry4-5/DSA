@@ -1,0 +1,29 @@
+C++ code
+
+
+https://leetcode.com/problems/all-paths-from-source-to-target/description/
+
+
+class Solution {
+    void func(int i, int dest, vector<int> path, vector<vector<int>>& paths,vector<vector<int>>& graph,vector<int>vis){
+        vis[i]=1;
+        path.push_back(i);
+        if(i == dest){
+            paths.push_back(path);
+        }
+        for(auto it : graph[i]){
+            if(vis[it]==0){
+                func(it,dest,path,paths,graph,vis);
+            }
+        }
+        vis[i] = 0;
+        path.pop_back();
+    }
+public:
+    vector<vector<int>> allPathsSourceTarget(vector<vector<int>>& graph) {
+        vector<vector<int>> paths;
+        vector<int>path,vis(graph.size(),0);
+        func(0,graph.size()-1,path,paths,graph,vis);
+        return paths;
+    }
+};
